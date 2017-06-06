@@ -1,3 +1,11 @@
+# plot.py
+#
+# Copyright (c) [2017] [yukirin]
+#
+# This software is released under the MIT License.
+# http://opensource.org/licenses/mit-license.php
+# ==============================================================================
+
 import csv
 import numpy as np
 from matplotlib import pyplot as plt
@@ -10,5 +18,5 @@ with open("posdata.csv", 'r') as f:
 
 fig = plt.figure()
 ax = Axes3D(fig)
-p = ax.scatter3D(x, y, z)
+ax.scatter3D(x, y, z)
 plt.show()
