@@ -5,7 +5,6 @@
 # This software is released under the MIT License.
 # http://opensource.org/licenses/mit-license.php
 # ==============================================================================
-
 import tensorflow as tf
 import numpy as np
 
