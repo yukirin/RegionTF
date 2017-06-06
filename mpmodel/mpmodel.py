@@ -51,12 +51,15 @@ def data_type():
 class MPInput(object):
   """The input data."""
 
-  def __init__(self, config, data, name=None):
+  def __init__(self, config, data, is_predict=False, name=None):
     self.input_size = config.input_size
     self.batch_size = batch_size = config.batch_size
     self.num_steps = num_steps = config.num_steps
     self.epoch_size = (len(data) - num_steps - 1) // batch_size
     self.output_size = config.output_size
+    if is_predict:
+      return
+
     self.input_data, self.targets = reader.data_producer(
         data, batch_size, num_steps, config.output_size, name=name)
 
@@ -105,15 +108,14 @@ class MPModel(object):
         "softmax_w", [size, output_size * input_size], dtype=data_type())
     softmax_b = tf.get_variable("softmax_b", [output_size * input_size], dtype=data_type())
     logits = tf.matmul(output, softmax_w) + softmax_b
+    self._logits = logits
+    if not is_training:
+      return
 
     targets = tf.reshape(input_.targets, [-1, output_size * input_size])
     loss = tf.losses.mean_squared_error(targets, logits)
-    self._logits = logits
     self._cost = loss
     self._final_state = state
-
-    if not is_training:
-      return
 
     global_step = tf.contrib.framework.get_or_create_global_step()
     self._lr = tf.train.exponential_decay(config.learning_rate, global_step,
