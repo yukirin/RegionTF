@@ -27,6 +27,7 @@ def inference(_):
 
     with tf.name_scope("Test"):
       test_input = mpmodel.MPInput(config=eval_config, data=test_data, name="TestInput")
+
       with tf.variable_scope("Model", reuse=False, initializer=initializer):
         mtest = mpmodel.MPModel(is_training=False, config=eval_config,
                                 input_=test_input, is_test=True)

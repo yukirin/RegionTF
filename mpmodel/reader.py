@@ -21,7 +21,7 @@ def sin_raw_data():
 
 
 def pos_raw_data():
-  with open("data.csv") as f:
+  with open("./../data/posdata.csv") as f:
     r = csv.reader(f)
     d = np.array(list(r), dtype=np.float32)
     return d

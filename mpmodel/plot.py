@@ -31,5 +31,6 @@ def plot3d(actual, predict, num_steps):
   ax = Axes3D(fig)
   ax.scatter3D(x[:num_steps], y[:num_steps], z[:num_steps], c='blue')
   ax.scatter3D(x[num_steps:], y[num_steps:], z[num_steps:], c='red')
+
   plt.xlim(-1, 1)
   plt.show()
