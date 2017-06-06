@@ -12,8 +12,6 @@ import unreal_engine as ue
 from TFPluginAPI import TFPluginAPI
 
 import mpmodel
-import reader
-import plot
 
 class MPModelUE4(TFPluginAPI):
    def setup(self):
