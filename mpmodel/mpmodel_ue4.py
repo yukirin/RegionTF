@@ -5,6 +5,8 @@
 # This software is released under the MIT License.
 # http://opensource.org/licenses/mit-license.php
 # ==============================================================================
+import os
+
 import tensorflow as tf
 import numpy as np
 
@@ -24,13 +26,13 @@ class MPModelUE4(TFPluginAPI):
        with tf.Graph().as_default():
            initializer = tf.random_uniform_initializer(-eval_config.init_scale, eval_config.init_scale)
            with tf.name_scope("Test"):
-              test_input = mpmodel.MPInput(config=eval_config, data=[],
-                                           is_predict=True, name="TestInput")
+              test_input = mpmodel.MPInput(config=eval_config, data=None, name="TestInput")
               with tf.variable_scope("Model", reuse=False, initializer=initializer):
                  self.model = mpmodel.MPModel(is_training=False, config=eval_config,
                                                                input_=test_input, is_test=True)
                  self.sess = tf.InteractiveSession()
-                 ckpt = tf.train.get_checkpoint_state('./save')
+                 save_dir = os.path.join(ue.get_content_dir(), "Scripts/save")
+                 ckpt = tf.train.get_checkpoint_state(save_dir)
                  last_model = ckpt.model_checkpoint_path
                  saver = tf.train.Saver()
                  saver.restore(self.sess, last_model)

@@ -50,15 +50,15 @@ def data_type():
 class MPInput(object):
   """The input data."""
 
-  def __init__(self, config, data, is_predict=False, name=None):
+  def __init__(self, config, data=None, name=None):
     self.input_size = config.input_size
     self.batch_size = batch_size = config.batch_size
     self.num_steps = num_steps = config.num_steps
-    self.epoch_size = (len(data) - num_steps - 1) // batch_size
     self.output_size = config.output_size
-    if is_predict:
+    if data is None:
       return
-
+    
+    self.epoch_size = (len(data) - num_steps - 1) // batch_size
     self.input_data, self.targets = reader.data_producer(
         data, batch_size, num_steps, config.output_size, name=name)
 
