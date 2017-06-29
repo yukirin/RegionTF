@@ -1,9 +1,9 @@
-- minX
-- maxX
-- minY
-- maxY
-- minZ
-- maxZ
-- x
-- y
-- z
+- minX -2155.0
+- maxX 37815.0
+- minY 6860.0
+- maxY 46880.0
+- minZ -3366.0
+- maxZ 4592.0
+- x 39970.0
+- y 40020.0
+- z 7958
